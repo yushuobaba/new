@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		                    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+							http://www.springframework.org/schema/context 
+							http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+							http://www.springframework.org/schema/aop 
+							http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
+							http://www.springframework.org/schema/tx 
+							http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
+							
+			<bean id="advice" class="com.ujiuye.Dao.Myaspect"></bean>				
+			<bean id="perdao" class="com.ujiuye.test.PersonDaoImpl"></bean>	
+			
+			<aop:config>
+			<!-- <aop:pointcut expression="execution(* com.ujiuye.dao.*.*(..))" id="mypoint">
+			<aop:aspect ref="advice">
+				method的值 是引入对象中的一个具体的方法
+				前置通知
+					<aop:before method="beforeAdvice" pointcut-ref="mypoint"/>
+					<aop:after method="afterAdvice" pointcut-ref="mypoint"/>
+					<aop:around method="aroundAdvice" pointcut-ref="mypoint"/>
+					<aop:after-returning method="finallyAdvice" pointcut-ref="mypoint"/>
+				</aop:aspect>
+				</aop:pointcut> -->
+				<aop:pointcut expression="execution(* com.ujiuye.Dao.*.*(..))" id="mypoint"/>
+				<aop:aspect ref="advice">
+					<aop:before method="beforeAdvice" pointcut-ref="mypoint"/>
+					<aop:after method="afterAdvice" pointcut-ref="mypoint"/>
+					<aop:around method="aroundAdvice" pointcut-ref="mypoint"/>
+					<aop:after-returning method="finallyAdvice" pointcut-ref="mypoint"/>
+				</aop:aspect>
+			</aop:config>
+			<!--开启aop自动注解模式-->
+			<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+</beans>
